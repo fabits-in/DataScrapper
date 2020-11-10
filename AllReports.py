@@ -30,7 +30,7 @@ def daily_reports(url,key):
     # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
     print(response.text)
 
-apiKeys=['circulars','latest-circulars','allMarketStatus','marketStatus','daily-reports','merged-daily-reports','monthly-reports']
+apiKeys=['circulars','latest-circulars','allMarketStatus','marketStatus','daily-reports','merged-daily-reports','monthly-reports'] # [2]< ,key=''
 favKeys=['favCaptial','favDerivatives','favDebt']
 keys=["CM",'INDEX','SLBS','SME','FO','COM','CD','NBF','WDM','CBM','IRD']
 
