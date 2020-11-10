@@ -5,6 +5,32 @@ import requests
 
 def monthly_reports(key):
     headers = {
+       'authority': 'www.nseindia.com',
+       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36',
+       'accept': '*/*',
+       'sec-fetch-site': 'same-origin',
+       'sec-fetch-mode': 'cors',
+       'sec-fetch-dest': 'empty',
+       'referer': 'https://www.nseindia.com/all-reports',
+       'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
+       'cookie': 'nseQuoteSymbols=[{"symbol":"SBIN","identifier":null,"type":"equity"}]; ak_bmsc=AE50B42D88B14656A462F6C175969C9317030F4ED2770000D5C4AA5F984D150A~plAUS9AiguYYualBR8N4zWQsRMfOazDZmX68q6meQTYfyVjDOvdBrAFBD/kY6c3DuKT/eiLepEC7GIiKmmODlvwXlgT8IHohLrzAwtybkmFcZl0QHTje5I6IMJ9TI+t/TGjm8PnS9hRwiEGztqTEegWIQ6F+CrgqPM+J3DNsGbQuQflTYl0gRDdQaw8uY86pTa2hCwtmAf05Z5ncyBB1WK0s5+136EG6ZLrDqEKYA7z5tQ05U8XRiILxGuwXu5jNNI; nsit=o_XADGyyJEUSPrDkn-vLNsP3; nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTYwNTAzMjg0NSwiZXhwIjoxNjA1MDM2NDQ1fQ.dh6lxHKEuWFi8l3B4CreW2wtEVXRr1SWKgKz_XLsJ74; bm_sv=13DC0D41F84814CC9CE759B7489A1EE8~9cdwWSlAiymCE9tf2rRZosbCtJ9qlUrX0vSeiHok5mcuRQ8UrS5Ne8UMEFAC7d+SkGjbXE9HH8DCVhk94SGLvlf+VOlOFswxsC1zb4Hai/0hWhU0Dy4qhaNrPzACbpbiQFtKYHSbnNn1P8PIw4N5zqHO3v4ljdp9o0Qpt/hbGUw=',
+    }
+
+
+    params = (
+        ('key', key),
+    )
+
+    response = requests.get('https://www.nseindia.com/api/monthly-reports', headers=headers, params=params)
+
+    # NB. Original query string below. It seems impossible to parse and
+    # reproduce query strings 100% accurately so the one below is given
+    # in case the reproduced version is not "correct".
+    # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
+    print(response.text)
+
+def merged_daily_reports(key):
+    headers = {
         'authority': 'www.nseindia.com',
         'cache-control': 'max-age=0',
         'upgrade-insecure-requests': '1',
@@ -22,7 +48,7 @@ def monthly_reports(key):
         ('key', key),
     )
 
-    response = requests.get('https://www.nseindia.com/api/monthly-reports', headers=headers, params=params)
+    response = requests.get('https://www.nseindia.com/api/merged-daily-reports', headers=headers, params=params)
 
     # NB. Original query string below. It seems impossible to parse and
     # reproduce query strings 100% accurately so the one below is given
@@ -30,5 +56,58 @@ def monthly_reports(key):
     # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
     print(response.text)
 
+def daily_reports(key):
+    headers = {
+       'authority': 'www.nseindia.com',
+       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36',
+       'accept': '*/*',
+       'sec-fetch-site': 'same-origin',
+       'sec-fetch-mode': 'cors',
+       'sec-fetch-dest': 'empty',
+       'referer': 'https://www.nseindia.com/all-reports',
+       'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
+       'cookie': 'nseQuoteSymbols=[{"symbol":"SBIN","identifier":null,"type":"equity"}]; ak_bmsc=AE50B42D88B14656A462F6C175969C9317030F4ED2770000D5C4AA5F984D150A~plAUS9AiguYYualBR8N4zWQsRMfOazDZmX68q6meQTYfyVjDOvdBrAFBD/kY6c3DuKT/eiLepEC7GIiKmmODlvwXlgT8IHohLrzAwtybkmFcZl0QHTje5I6IMJ9TI+t/TGjm8PnS9hRwiEGztqTEegWIQ6F+CrgqPM+J3DNsGbQuQflTYl0gRDdQaw8uY86pTa2hCwtmAf05Z5ncyBB1WK0s5+136EG6ZLrDqEKYA7z5tQ05U8XRiILxGuwXu5jNNI; nsit=o_XADGyyJEUSPrDkn-vLNsP3; nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTYwNTAzMjg0NSwiZXhwIjoxNjA1MDM2NDQ1fQ.dh6lxHKEuWFi8l3B4CreW2wtEVXRr1SWKgKz_XLsJ74; bm_sv=13DC0D41F84814CC9CE759B7489A1EE8~9cdwWSlAiymCE9tf2rRZosbCtJ9qlUrX0vSeiHok5mcuRQ8UrS5Ne8UMEFAC7d+SkGjbXE9HH8DCVhk94SGLvlf+VOlOFswxsC1zb4Hai/0hWhU0Dy4qhaNrPzACbpbiQFtKYHSbnNn1P8PIw4N5zqHO3v4ljdp9o0Qpt/hbGUw=',
+    }
 
-monthly_reports("CM")
+    params = (
+        ('key', key),
+    )
+
+    response = requests.get('https://www.nseindia.com/api/daily-reports', headers=headers, params=params)
+
+    # NB. Original query string below. It seems impossible to parse and
+    # reproduce query strings 100% accurately so the one below is given
+    # in case the reproduced version is not "correct".
+    # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
+    print(response.text)
+
+def apis(key):
+    headers = {
+       'authority': 'www.nseindia.com',
+       'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36',
+       'accept': '*/*',
+       'sec-fetch-site': 'same-origin',
+       'sec-fetch-mode': 'cors',
+       'sec-fetch-dest': 'empty',
+       'referer': 'https://www.nseindia.com/all-reports',
+       'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
+       'cookie': 'nseQuoteSymbols=[{"symbol":"SBIN","identifier":null,"type":"equity"}]; ak_bmsc=AE50B42D88B14656A462F6C175969C9317030F4ED2770000D5C4AA5F984D150A~plAUS9AiguYYualBR8N4zWQsRMfOazDZmX68q6meQTYfyVjDOvdBrAFBD/kY6c3DuKT/eiLepEC7GIiKmmODlvwXlgT8IHohLrzAwtybkmFcZl0QHTje5I6IMJ9TI+t/TGjm8PnS9hRwiEGztqTEegWIQ6F+CrgqPM+J3DNsGbQuQflTYl0gRDdQaw8uY86pTa2hCwtmAf05Z5ncyBB1WK0s5+136EG6ZLrDqEKYA7z5tQ05U8XRiILxGuwXu5jNNI; nsit=o_XADGyyJEUSPrDkn-vLNsP3; nseappid=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcGkubnNlIiwiYXVkIjoiYXBpLm5zZSIsImlhdCI6MTYwNTAzMjg0NSwiZXhwIjoxNjA1MDM2NDQ1fQ.dh6lxHKEuWFi8l3B4CreW2wtEVXRr1SWKgKz_XLsJ74; bm_sv=13DC0D41F84814CC9CE759B7489A1EE8~9cdwWSlAiymCE9tf2rRZosbCtJ9qlUrX0vSeiHok5mcuRQ8UrS5Ne8UMEFAC7d+SkGjbXE9HH8DCVhk94SGLvlf+VOlOFswxsC1zb4Hai/0hWhU0Dy4qhaNrPzACbpbiQFtKYHSbnNn1P8PIw4N5zqHO3v4ljdp9o0Qpt/hbGUw=',
+    }
+
+    params = (
+        ('key', key),
+    )
+
+    response = requests.get('https://www.nseindia.com/api', headers=headers, params=params)
+
+    # NB. Original query string below. It seems impossible to parse and
+    # reproduce query strings 100% accurately so the one below is given
+    # in case the reproduced version is not "correct".
+    # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
+    print(response.text)
+
+apiKeys=['circulars','latest-circulars','allMarketStatus','marketStatus']
+favKeys=['favCaptial','favDerivatives','favDebt']
+keys=["CM",'INDEX','SLBS','SME','FO','COM','CD','NBF','WDM','CBM','IRD']
+#monthly_reports("CM")
+daily_reports(keys[1])
