@@ -1,10 +1,14 @@
 import nse
 
-instrument_info = nse.equity_info("SBIN")
-instrument_trade_info = nse.equity_trade_info("SBIN")
+# instrument_info = nse.equity_info("SBIN")
+# instrument_trade_info = nse.equity_trade_info("SBIN")
+#
+# print(instrument_info)
+# print(instrument_trade_info)
 
-print(instrument_info)
-print(instrument_trade_info)
+print(nse.list_of_all_securities())
+
+instruments = ["SBIN", "RELIANCE", "ASHOKLEY", "BHARTIARTL", "PVR", "IRCTC", "ITC", "INFY", "POWERGRID", "ACC"]
 
 #
 # "symbol"

@@ -24,3 +24,9 @@ def equity_trade_info(symbol):
 def equity_info(symbol):
     response = nse.get(f'https://www.nseindia.com/api/quote-equity?symbol={symbol}', headers=headers)
     return response.text
+
+
+def list_of_all_securities():
+    response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
+                       headers=headers)
+    return response.text
