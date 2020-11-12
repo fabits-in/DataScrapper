@@ -20,13 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b65f1f3-da1e-44f1-8100-284f1e9f189b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/nse/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AllReports.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllReports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Equity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MarketDepthBook.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,7 +58,49 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataScrapper" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/nse" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/nse/__init__.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataScrapper" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="s" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataScrapper" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -70,6 +122,12 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.__init__" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -111,26 +169,30 @@
     <option name="LAST_COMMIT_MESSAGE" value="api" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1343" height="185" key="GridCell.Tab.0.bottom" timestamp="1605031338701">
+    <state width="1343" height="456" key="GridCell.Tab.0.bottom" timestamp="1605197729384">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1343" height="185" key="GridCell.Tab.0.bottom/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338701" />
-    <state width="1343" height="185" key="GridCell.Tab.0.center" timestamp="1605031338700">
+    <state width="1343" height="456" key="GridCell.Tab.0.bottom/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605197729384" />
+    <state width="1343" height="456" key="GridCell.Tab.0.center" timestamp="1605197729383">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1343" height="185" key="GridCell.Tab.0.center/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
-    <state width="1343" height="185" key="GridCell.Tab.0.left" timestamp="1605031338700">
+    <state width="1343" height="456" key="GridCell.Tab.0.center/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605197729383" />
+    <state width="1343" height="456" key="GridCell.Tab.0.left" timestamp="1605197729383">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1343" height="185" key="GridCell.Tab.0.left/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
-    <state width="1343" height="185" key="GridCell.Tab.0.right" timestamp="1605031338700">
+    <state width="1343" height="456" key="GridCell.Tab.0.left/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605197729383" />
+    <state width="1343" height="456" key="GridCell.Tab.0.right" timestamp="1605197729383">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
-    <state width="1343" height="185" key="GridCell.Tab.0.right/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
+    <state width="1343" height="456" key="GridCell.Tab.0.right/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605197729383" />
     <state x="278" y="115" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605031335468">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
     <state x="278" y="115" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031335468" />
+    <state x="464" y="294" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605197501057">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="464" y="294" width="438" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605197501057" />
     <state x="346" y="89" key="search.everywhere.popup" timestamp="1605031226136">
       <screen x="0" y="27" width="1366" height="741" />
     </state>
