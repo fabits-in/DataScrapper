@@ -1,16 +1,29 @@
 import nse
 
-# instrument_info = nse.equity_info("SBIN")
-# instrument_trade_info = nse.equity_trade_info("SBIN")
-#
-# print(instrument_info)
-# print(instrument_trade_info)
-
-print(nse.list_of_all_securities())
-
 instruments = ["SBIN", "RELIANCE", "ASHOKLEY", "BHARTIARTL", "PVR", "IRCTC", "ITC", "INFY", "POWERGRID", "ACC"]
 
+
+def symbol_info(symbol):
+    instrument_info = nse.equity_info("SBIN")
+    instrument_trade_info = nse.equity_trade_info("SBIN")
+    # code
+    return {}
+
+
+for x in instruments:
+    symbol_info(x)
+
 #
+# x = nse.list_of_all_securities()
+
+
+# import json
+#
+# result = {}
+# result["symbol"] = json.loads(instrument_info)["info"]["symbol"]
+# result["isin"] = json.loads(instrument_info)["info"]["isin"]
+# print(result)
+
 # "symbol"
 # "isin"
 # "status"
