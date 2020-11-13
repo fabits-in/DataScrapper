@@ -30,3 +30,7 @@ def list_of_all_securities():
     response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
                        headers=headers)
     return response.text
+
+def holding_shares(table):
+    response = nse.get(f'https://www1.nseindia.com/corporates/shldStructure/ShareholdingPattern/shp_{table}.jsp?ndsId=153247&symbol=RELIANCE&countStr=0|0|0|0|0|0|0|0|0|0|0|0|0|0|NEW_1|0|N&asOnDate=30-Sep-2020&industry=-&CompanyName=Reliance%20Industries%20Limited&RevisedData=N', headers=headers)
+    return response.text

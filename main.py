@@ -7,7 +7,6 @@ import nse
 # print(instrument_trade_info)
 
 print(nse.list_of_all_securities())
-
 instruments = ["SBIN", "RELIANCE", "ASHOKLEY", "BHARTIARTL", "PVR", "IRCTC", "ITC", "INFY", "POWERGRID", "ACC"]
 
 #
