@@ -30,3 +30,4 @@ def list_of_all_securities():
     response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
                        headers=headers)
     return response.text
+
