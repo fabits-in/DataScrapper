@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7b65f1f3-da1e-44f1-8100-284f1e9f189b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ShareHolding.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllReports.py" beforeDir="false" afterPath="$PROJECT_DIR$/AllReports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nse/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nse/__init__.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1k6gcnd2uRw3XBK3cOA8D24FEvE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="s" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DataScrapper" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/s.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7b65f1f3-da1e-44f1-8100-284f1e9f189b" name="Default Changelist" comment="" />
+      <created>1605026537165</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1605026537165</updated>
+      <workItem from="1605026538860" duration="2168000" />
+      <workItem from="1605075872007" duration="1059000" />
+      <workItem from="1605169555665" duration="172000" />
+      <workItem from="1605200181685" duration="1339000" />
+      <workItem from="1605251473526" duration="1676000" />
+      <workItem from="1605262358923" duration="5790000" />
+      <workItem from="1605269396578" duration="3291000" />
+    </task>
+    <task id="LOCAL-00001" summary="api">
+      <created>1605031321529</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1605031321529</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="api" />
+    <option name="LAST_COMMIT_MESSAGE" value="api" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="232" y="142" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605169559348">
+      <screen x="0" y="0" width="1536" height="960" />
+    </state>
+    <state x="232" y="142" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.960@0.0.1536.960" timestamp="1605169559348" />
+    <state width="1343" height="185" key="GridCell.Tab.0.bottom" timestamp="1605031338701">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1343" height="185" key="GridCell.Tab.0.bottom/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338701" />
+    <state width="1343" height="185" key="GridCell.Tab.0.center" timestamp="1605031338700">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1343" height="185" key="GridCell.Tab.0.center/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
+    <state width="1343" height="185" key="GridCell.Tab.0.left" timestamp="1605031338700">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1343" height="185" key="GridCell.Tab.0.left/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
+    <state width="1343" height="185" key="GridCell.Tab.0.right" timestamp="1605031338700">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state width="1343" height="185" key="GridCell.Tab.0.right/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031338700" />
+    <state x="278" y="115" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605031335468">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="278" y="115" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031335468" />
+    <state x="433" y="225" key="run.anything.popup" timestamp="1605209175263">
+      <screen x="0" y="0" width="1536" height="960" />
+    </state>
+    <state x="433" y="225" key="run.anything.popup/0.0.1536.960@0.0.1536.960" timestamp="1605209175263" />
+    <state x="346" y="89" key="search.everywhere.popup" timestamp="1605031226136">
+      <screen x="0" y="27" width="1366" height="741" />
+    </state>
+    <state x="346" y="89" key="search.everywhere.popup/0.27.1366.741/1366.0.1366.768@0.27.1366.741" timestamp="1605031226136" />
+  </component>
+</project>

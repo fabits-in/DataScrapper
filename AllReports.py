@@ -2,7 +2,6 @@
 
 import requests
 
-
 def daily_reports(url,key):
 
     headers = {
@@ -16,18 +15,13 @@ def daily_reports(url,key):
     'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
     }
 
-
-    params = (
-        ('key', key),
-    )
-    link = 'https://www.nseindia.com/api/'+url
-    response = requests.get(link, headers=headers, params=params)
-
-    # NB. Original query string below. It seems impossible to parse and
-    # reproduce query strings 100% accurately so the one below is given
-    # in case the reproduced version is not "correct".
-    # response = requests.get('https://www.nseindia.com/api/monthly-reports?key=CM', headers=headers)
-    print(response.text)
+    if key:
+        link = 'https://www.nseindia.com/api/'+url+'?key='+key
+    else:
+        link = 'https://www.nseindia.com/api/'+url
+    response = requests.Session()
+    result = response.get(link, headers=headers)
+    print(result.text)
 
 apiKeys=['circulars','latest-circulars','allMarketStatus','marketStatus','daily-reports','merged-daily-reports','monthly-reports'] # [2]< ,key=''
 favKeys=['favCaptial','favDerivatives','favDebt']
