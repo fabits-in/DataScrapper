@@ -21,5 +21,5 @@ def save_instrument_data(symbol):
     print('One post: {0}'.format(result.inserted_id))
 
 
-for x in instruments:
-    save_instrument_data(x)
+# for x in instruments:
+#     save_instrument_data(x)
