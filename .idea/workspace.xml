@@ -19,9 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b65f1f3-da1e-44f1-8100-284f1e9f189b" name="Default Changelist" comment="nse api">
+    <list default="true" id="7b65f1f3-da1e-44f1-8100-284f1e9f189b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/financialResults.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ShareHolding.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShareHolding.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nse/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/nse/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +57,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ShareHolding">
+  <component name="RunManager">
     <configuration name="ShareHolding" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="DataScrapper" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,13 +142,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.ShareHolding" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.__init__" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -159,6 +152,8 @@
       <option name="presentableId" value="Default" />
       <updated>1605026537165</updated>
       <workItem from="1605026538860" duration="2168000" />
+      <workItem from="1605288633190" duration="746000" />
+      <workItem from="1605289505531" duration="16544000" />
     </task>
     <task id="LOCAL-00001" summary="api">
       <created>1605031321529</created>
@@ -219,6 +214,14 @@
     <option name="LAST_COMMIT_MESSAGE" value="nse api" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="232" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605340441877">
+      <screen x="0" y="0" width="1536" height="960" />
+    </state>
+    <state x="232" y="139" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.960@0.0.1536.960" timestamp="1605340441877" />
+    <state x="462" y="286" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605289512541">
+      <screen x="0" y="0" width="1536" height="960" />
+    </state>
+    <state x="462" y="286" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.960@0.0.1536.960" timestamp="1605289512541" />
     <state width="1343" height="288" key="GridCell.Tab.0.bottom" timestamp="1605277873431">
       <screen x="0" y="27" width="1366" height="741" />
     </state>

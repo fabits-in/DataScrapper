@@ -38,3 +38,6 @@ def holding_shares(table):
         headers=headers)
     return response.text
 
+def financial_results():
+    response = nse.get(f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',headers=headers)
+    return response.text
