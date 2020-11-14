@@ -10,7 +10,7 @@ headers = {
     }
 investing = requests.Session()
 
-def streaming_chart(symbol='169',dmy_on='30 Nov 00',dmy_to='1605374563',resolution='M'):
+def streaming_chart(symbol='169',dmy_on='30 Nov 2000',dmy_to='3 Nov 2020',resolution='M'):
     time_object_on = time.strptime(dmy_on, "%d %b %Y")
     on = time.mktime(time_object_on)
     time_object_to = time.strptime(dmy_to, "%d %b %Y")

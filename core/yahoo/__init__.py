@@ -30,7 +30,7 @@ params = (
 investing = requests.Session()
 response = investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI', headers=headers, params=params)
 
-def streaming_chart(symbol='^DJI',dmy_on='30 Nov 00',dmy_to='30 Nov 07',interval='1m'):
+def streaming_chart(symbol='^DJI',dmy_on='30 Nov 2000',dmy_to='30 Nov 2007',interval='1m'):
     time_object_on = time.strptime(dmy_on, "%d %b %Y")
     on = int(time.mktime(time_object_on))
     time_object_to = time.strptime(dmy_to, "%d %b %Y")
@@ -48,7 +48,7 @@ def streaming_chart(symbol='^DJI',dmy_on='30 Nov 00',dmy_to='30 Nov 07',interval
         ('crumb', 'AC8D9NbajIk'),
         ('corsDomain', 'finance.yahoo.com'),
     )
-    response=investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI', headers=headers, params=params)
+    response=investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5E{symbol}', headers=headers, params=params)
     return (response.text)
 
 print(streaming_chart('^DJI','01 Nov 1990','3 Nov 2020','1d'))
