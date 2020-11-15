@@ -40,8 +40,8 @@ ISIN = {
 def get_and_store_all_delivery():
     from datetime import date, timedelta
 
-    sdate = date(2020, 11, 13)  # start date
-    edate = date(2020, 11, 15)  # end date
+    sdate = date(2002, 1, 1)  # start date
+    edate = date(2002, 12, 31)  # end date
     date_modified = sdate
     list = [sdate]
 
@@ -58,12 +58,10 @@ def get_and_store_all_delivery():
             month = '0' + str(date.month)
         try:
             x = nse.delivery_value(day, month, date.year)
-            name = f"raw/{date.day}{date.month}{date.year}.csv"
+            name = f"raw/{date.year}:{month}:{day}.csv"
             f = open(name, 'w')
             f.write(x)
             f.close()
-            print(x)
-            break
         except:
             pass
 if __name__ == '__main__':
