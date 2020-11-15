@@ -84,27 +84,23 @@ def get_dates(shift, lmt):
 # for date in dates:
 #     data = historical_data("SBIN", date[0], date[1])
 #     print(data)
-#
-# data = historical_data("SBIN", "01-11-2020", "14-11-2020")
-# for x in data["data"]:
-#     print(x)
 
-data = {
-    'symbol': 'CH_SYMBOL',
-    'series': 'CH_SERIES',
-    'market_type': 'CH_MARKET_TYPE',
-    'open': 'CH_OPENING_PRICE',
-    'high': 'CH_TRADE_HIGH_PRICE',
-    'low': 'CH_TRADE_LOW_PRICE',
-    'close': 'CH_CLOSING_PRICE',
-    'prev_close': 'CH_PREVIOUS_CLS_PRICE',
-    'total_volume': 'CH_TOT_TRADED_QTY',
-    'total_value': 'CH_TOT_TRADED_VAL',
-    'total_trade': 'CH_TOTAL_TRADES',
-    'isin': 'CH_ISIN',
-    'created_at': 'createdAt',
-    'updated_at': 'updatedAt',
-}
+data = historical_data("SBIN", "01-11-2020", "14-11-2020")
+adata = []
+for x in data["data"]:
+    fdata = {"symbol": x["CH_SYMBOL"], "series": x["CH_SERIES"], "market_type": x["CH_MARKET_TYPE"],
+             "open": x["CH_OPENING_PRICE"], "high": x["CH_TRADE_HIGH_PRICE"], "low": x["CH_TRADE_LOW_PRICE"],
+             "close": x["CH_CLOSING_PRICE"], "prev_close": x["CH_PREVIOUS_CLS_PRICE"],
+             "total_volume": x["CH_TOT_TRADED_QTY"], "total_value": x["CH_TOT_TRADED_VAL"],
+             "total_trade": x["CH_TOTAL_TRADES"], "isin": x["CH_ISIN"], "time": x["createdAt"]}
+    adata.append(fdata)
+
+for x in adata:
+    print(x)
+
+
 def financial_results():
-    response = nse.get(f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',headers=headers)
+    response = nse.get(
+        f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',
+        headers=headers)
     return response.text
