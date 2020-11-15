@@ -43,12 +43,33 @@ def holding_shares(table):
     return response.text
 
 
-def historical_data(symbol, from_date, to_date, series='["EQ"]'):
+def _historical_data(symbol, from_date, to_date, series='["EQ"]'):
     response = nse.get(
         f"https://www.nseindia.com/api/historical/cm/equity?symbol={symbol}&series={series}&from={from_date}&to={to_date}",
         headers=headers)
     import json
-    return json.loads(response.text)
+    from datetime import datetime
+    data = json.loads(response.text)
+    data_arr = []
+    for x in data["data"]:
+        timestamp = int(datetime.timestamp(datetime.strptime(x["createdAt"], "%Y-%m-%dT%H:%M:%S.%fZ")))
+        data_dict = {"symbol": x["CH_SYMBOL"], "series": x["CH_SERIES"], "market_type": x["CH_MARKET_TYPE"],
+                     "open": x["CH_OPENING_PRICE"], "high": x["CH_TRADE_HIGH_PRICE"], "low": x["CH_TRADE_LOW_PRICE"],
+                     "close": x["CH_CLOSING_PRICE"], "prev_close": x["CH_PREVIOUS_CLS_PRICE"],
+                     "total_volume": x["CH_TOT_TRADED_QTY"], "total_value": x["CH_TOT_TRADED_VAL"],
+                     "total_trade": x["CH_TOTAL_TRADES"], "isin": x["CH_ISIN"], "time": timestamp}
+        data_arr.append(data_dict)
+    return data_arr
+
+
+def historical_data(symbol, limit_in_days=10):
+    dates = get_dates(700, limit_in_days)
+    arr = []
+    for date in dates:
+        data = _historical_data(symbol, date[0], date[1])
+        arr += data
+
+    return arr
 
 
 def day_before_today(no_of_days):
@@ -77,26 +98,6 @@ def get_dates(shift, lmt):
         from_date = date_format(day_before_today(lmt))
         result.insert(0, (from_date, to_date))
     return result
-
-
-# dates = get_dates(700, 14000)
-# print(dates)
-# for date in dates:
-#     data = historical_data("SBIN", date[0], date[1])
-#     print(data)
-
-data = historical_data("SBIN", "01-11-2020", "14-11-2020")
-adata = []
-for x in data["data"]:
-    fdata = {"symbol": x["CH_SYMBOL"], "series": x["CH_SERIES"], "market_type": x["CH_MARKET_TYPE"],
-             "open": x["CH_OPENING_PRICE"], "high": x["CH_TRADE_HIGH_PRICE"], "low": x["CH_TRADE_LOW_PRICE"],
-             "close": x["CH_CLOSING_PRICE"], "prev_close": x["CH_PREVIOUS_CLS_PRICE"],
-             "total_volume": x["CH_TOT_TRADED_QTY"], "total_value": x["CH_TOT_TRADED_VAL"],
-             "total_trade": x["CH_TOTAL_TRADES"], "isin": x["CH_ISIN"], "time": x["createdAt"]}
-    adata.append(fdata)
-
-for x in adata:
-    print(x)
 
 
 def financial_results():
