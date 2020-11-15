@@ -108,7 +108,7 @@ def financial_results():
 
 
 def delivery_value(day, month, year):
-    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=10)
+    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=5)
     return response.text
 
 # delivery_value()

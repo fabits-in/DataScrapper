@@ -38,21 +38,32 @@ def insert_all_historical_data(symbol):
 
 
 def get_and_store_all_delivery():
-    # from datetime import date, timedelta
-    #
-    # sdate = date(2000, 1, 1)  # start date
-    # edate = date(2020, 11, 14)  # end date
-    # date_modified = sdate
-    # list = [sdate]
-    #
-    # while date_modified < edate:
-    #     date_modified += timedelta(days=1)
-    #     list.append(date_modified)
-    #
-    # print(list)
-    x = nse.delivery_value("06", "01", "2003")
-    print(x)
+    from datetime import date, timedelta
 
+    sdate = date(2002, 1, 1)  # start date
+    edate = date(2020, 11, 14)  # end date
+    date_modified = sdate
+    list = [sdate]
+
+    while date_modified < edate:
+        date_modified += timedelta(days=1)
+        list.append(date_modified)
+
+    for date in tqdm(list):
+        day = 0
+        month = 0
+        if 1 <= date.day <= 9:
+            day = '0' + str(date.day)
+        if 1 <= date.month <= 9:
+            month = '0' + str(date.month)
+        try:
+            x = nse.delivery_value(day, month, date.year)
+            name = f"raw/{date.day}{date.month}{date.year}.csv"
+            f = open(name, 'w')
+            f.write(x)
+            f.close()
+        except:
+            pass
 
 if __name__ == '__main__':
 
