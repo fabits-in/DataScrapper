@@ -50,8 +50,8 @@ def get_and_store_all_delivery():
         list.append(date_modified)
 
     for date in tqdm(list):
-        day = 0
-        month = 0
+        day = date.day
+        month = date.month
         if 1 <= date.day <= 9:
             day = '0' + str(date.day)
         if 1 <= date.month <= 9:
