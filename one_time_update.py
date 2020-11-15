@@ -1,7 +1,7 @@
 from tqdm import tqdm
 
 from core import nse
-from core.server.InfluxDB import InfluxDB
+# from core.server.InfluxDB import InfluxDB
 
 instruments = ["SBIN", "RELIANCE", "ASHOKLEY", "BHARTIARTL", "PVR", "IRCTC", "ITC", "INFY", "POWERGRID", "ACC"]
 ISIN = {
@@ -17,31 +17,31 @@ ISIN = {
     "ACC": "INE012A01025"
 
 }
-influxdb = InfluxDB()
+# influxdb = InfluxDB()
 
 
-def insert_all_historical_data(symbol):
-    data_arr = nse.historical_data(symbol, 15000)
-    arr = []
-    for data in data_arr:
-        influx_data = f"day,symbol={data['symbol']},series={data['series']},market_type={data['market_type']}," \
-                      f"exchange=NSE,isin={ISIN[symbol]}" \
-                      f" open={data['open']},high={data['high']},low={data['low']},close={data['close']}," \
-                      f"prev_close={data['prev_close']},total_volume={data['total_volume']}," \
-                      f"total_value={data['total_value']},total_trade={0 if data['total_trade'] is None else data['total_trade']}" \
-                      f" {data['time']}"
-        arr.append(influx_data)
-
-    for i in tqdm(range(0, len(arr), 10000)):
-        sq = arr[i:i + 10000]
-        influxdb.write_data(sq)
+# def insert_all_historical_data(symbol):
+#     data_arr = nse.historical_data(symbol, 15000)
+#     arr = []
+#     for data in data_arr:
+#         influx_data = f"day,symbol={data['symbol']},series={data['series']},market_type={data['market_type']}," \
+#                       f"exchange=NSE,isin={ISIN[symbol]}" \
+#                       f" open={data['open']},high={data['high']},low={data['low']},close={data['close']}," \
+#                       f"prev_close={data['prev_close']},total_volume={data['total_volume']}," \
+#                       f"total_value={data['total_value']},total_trade={0 if data['total_trade'] is None else data['total_trade']}" \
+#                       f" {data['time']}"
+#         arr.append(influx_data)
+#
+#     for i in tqdm(range(0, len(arr), 10000)):
+#         sq = arr[i:i + 10000]
+#         influxdb.write_data(sq)
 
 
 def get_and_store_all_delivery():
     from datetime import date, timedelta
 
-    sdate = date(2002, 1, 1)  # start date
-    edate = date(2020, 11, 14)  # end date
+    sdate = date(2020, 11, 13)  # start date
+    edate = date(2020, 11, 15)  # end date
     date_modified = sdate
     list = [sdate]
 
@@ -62,9 +62,10 @@ def get_and_store_all_delivery():
             f = open(name, 'w')
             f.write(x)
             f.close()
+            print(x)
+            break
         except:
             pass
-
 if __name__ == '__main__':
 
     # for symbol in instruments:
