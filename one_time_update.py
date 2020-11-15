@@ -37,7 +37,26 @@ def insert_all_historical_data(symbol):
         influxdb.write_data(sq)
 
 
+def get_and_store_all_delivery():
+    # from datetime import date, timedelta
+    #
+    # sdate = date(2000, 1, 1)  # start date
+    # edate = date(2020, 11, 14)  # end date
+    # date_modified = sdate
+    # list = [sdate]
+    #
+    # while date_modified < edate:
+    #     date_modified += timedelta(days=1)
+    #     list.append(date_modified)
+    #
+    # print(list)
+    x = nse.delivery_value("06", "01", "2003")
+    print(x)
+
+
 if __name__ == '__main__':
 
-    for symbol in instruments:
-        insert_all_historical_data(symbol)
+    # for symbol in instruments:
+    #     insert_all_historical_data(symbol)
+
+    get_and_store_all_delivery()

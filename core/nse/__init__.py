@@ -105,3 +105,10 @@ def financial_results():
         f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',
         headers=headers)
     return response.text
+
+
+def delivery_value(day, month, year):
+    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=10)
+    return response.text
+
+# delivery_value()
