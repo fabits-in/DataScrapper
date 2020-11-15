@@ -12,20 +12,6 @@ headers = {
     'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
 }
 
-params = (
-    ('symbol', '^DJI'),
-    ('period1', '1605199740'),
-    ('period2', '1605378419'),
-    ('useYfId', 'true'),
-    ('interval', '1m'),
-    ('includePrePost', 'true'),
-    ('events', 'div|split|earn'),
-    ('lang', 'en-US'),
-    ('region', 'US'),
-    ('crumb', 'AC8D9NbajIk'),
-    ('corsDomain', 'finance.yahoo.com'),
-)
-
 
 investing = requests.Session()
 response = investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI', headers=headers, params=params)

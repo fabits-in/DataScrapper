@@ -84,10 +84,10 @@ def get_dates(shift, lmt):
 # for date in dates:
 #     data = historical_data("SBIN", date[0], date[1])
 #     print(data)
-
-data = historical_data("SBIN", "01-11-2020", "14-11-2020")
-for x in data["data"]:
-    print(x)
+#
+# data = historical_data("SBIN", "01-11-2020", "14-11-2020")
+# for x in data["data"]:
+#     print(x)
 
 data = {
     'symbol': 'CH_SYMBOL',
