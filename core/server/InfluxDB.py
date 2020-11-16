@@ -7,7 +7,7 @@ class InfluxDB:
     def __init__(self):
         token = "BAz_tvCiF48nA94hRgb9JD16Kh0GwuHOhjUuZtaKxGd8Ue03UeXZMbLFPv1arM3MzxpPpU_DVgcwrW1oOYrKvg=="
         self.org = "fabits"
-        server = "ec2-13-232-83-23.ap-south-1.compute.amazonaws.com"
+        server = "ec2-13-235-99-203.ap-south-1.compute.amazonaws.com"
         port = "8086"
         self.client = InfluxDBClient(url=f"http://{server}:{port}", token=token)
 

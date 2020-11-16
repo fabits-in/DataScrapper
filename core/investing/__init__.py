@@ -1,27 +1,70 @@
-import requests
-import time
-headers = {
-        'Connection': 'keep-alive',
-        'Accept': '*/*',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
-        'Content-Type': 'text/plain',
-        'Origin': 'https://tvc-invdn-com.akamaized.net',
-        'Referer': 'https://tvc-invdn-com.akamaized.net/',
-    }
-investing = requests.Session()
+from datetime import datetime, timedelta
 
-def streaming_chart(symbol='169',dmy_on='30 Nov 2000',dmy_to='3 Nov 2020',resolution='M'):
-    time_object_on = time.strptime(dmy_on, "%d %b %Y")
-    on = time.mktime(time_object_on)
-    time_object_to = time.strptime(dmy_to, "%d %b %Y")
-    to = time.mktime(time_object_to)
-    params = (
-            ('symbol', symbol),
-            ('resolution', resolution),
-            ('from', on),
-            ('to', to),
-        )
-    response=investing.get('https://tvc4.forexpros.com/4ba24e053beb906079de977313b48804/1605374563/56/56/23/history', headers=headers, params=params)
+import requests
+
+headers = {
+    'Connection': 'keep-alive',
+    'Accept': '*/*',
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.183 Safari/537.36 OPR/72.0.3815.320',
+    'Content-Type': 'text/plain',
+    'Origin': 'https://tvc-invdn-com.akamaized.net',
+    'Sec-Fetch-Site': 'cross-site',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Dest': 'empty',
+    'Referer': 'https://tvc-invdn-com.akamaized.net/web/1.12.27/index59-prod.html?carrier=81d125a138fc6f6eae835cd3c2994024&time=1605464798&domain_ID=56&lang_ID=56&timezone_ID=23&version=1.12.27&locale=en&timezone=Asia/Kolkata&pair_ID=17940&interval=D&session=session&prefix=in&suffix=&client=1&user=0&family_prefix=tvc4&init_page=instrument&sock_srv=https://stream171.forexpros.com:443&m_pids=&watchlist=&geoc=IN&site=https://in.investing.com',
+    'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+}
+
+investing = requests.Session()
+response = investing.get('https://in.investing.com/', headers=headers)
+
+
+def _historical_data(symbol, from_date, to_date):
+    response = requests.get(
+        f'https://tvc4.forexpros.com/81d125a138fc6f6eae835cd3c2994024/1605464798/56/56/23/history?symbol={symbol}&resolution=D&from={from_date}&to={to_date}',
+        headers=headers)
     return response.text
 
-print(streaming_chart('169','01 Nov 2000','3 Nov 2020','M'))
+
+def historical_data(symbol, limit_in_days=10):
+    dates = get_dates(20000, limit_in_days)
+    arr = ''
+    for date in dates:
+        print(date[0], date[1])
+        print(int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
+        data = _historical_data(symbol, int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
+        arr = data
+    return arr
+
+
+# from=1329330428&to=1351016826
+#      1519066200 1544986200
+def day_before_today(no_of_days):
+    day = datetime.today() - timedelta(days=no_of_days)
+    return day
+
+
+def get_dates(shift, lmt):
+    result = []
+    times = lmt // shift
+    for x in range(times):
+        to_date = day_before_today(x * shift + (0 if x == 0 else +1))
+        from_date = day_before_today(x * shift + shift)
+        result.insert(0, (from_date, to_date))
+
+    # left overs??
+    left = lmt % shift
+    st = times * shift
+    if left > 0:
+        to_date = day_before_today(st)
+        from_date = day_before_today(lmt)
+        result.insert(0, (from_date, to_date))
+    return result
+
+
+investing_index = ["17940", "39929", "14958", "166", "172", "175", "40820", "37426"]
+for inv in investing_index:
+    x = historical_data(inv, 20000)
+    f = open(inv, 'w')
+    f.write(x)
+    f.close()

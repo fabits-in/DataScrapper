@@ -45,26 +45,29 @@ def holding_shares(table):
 
 def _historical_data(symbol, from_date, to_date, series='["EQ"]'):
     response = nse.get(
-        f"https://www.nseindia.com/api/historical/cm/equity?symbol={symbol}&series={series}&from={from_date}&to={to_date}",
+        f"https://www.nseindia.com/api/historical/cm/equity?symbol={symbol}&series={series}&from={from_date}&to={to_date}&csv=true",
         headers=headers)
-    import json
-    from datetime import datetime
-    data = json.loads(response.text)
-    data_arr = []
-    for x in data["data"]:
-        timestamp = int(datetime.timestamp(datetime.strptime(x["createdAt"], "%Y-%m-%dT%H:%M:%S.%fZ")))
-        data_dict = {"symbol": x["CH_SYMBOL"], "series": x["CH_SERIES"], "market_type": x["CH_MARKET_TYPE"],
-                     "open": x["CH_OPENING_PRICE"], "high": x["CH_TRADE_HIGH_PRICE"], "low": x["CH_TRADE_LOW_PRICE"],
-                     "close": x["CH_CLOSING_PRICE"], "prev_close": x["CH_PREVIOUS_CLS_PRICE"],
-                     "total_volume": x["CH_TOT_TRADED_QTY"], "total_value": x["CH_TOT_TRADED_VAL"],
-                     "total_trade": x["CH_TOTAL_TRADES"], "isin": x["CH_ISIN"], "time": timestamp}
-        data_arr.append(data_dict)
-    return data_arr
+    # import json
+    # from datetime import datetime
+    data = str(response.text) + "\n"
+    # data_arr = []
+    # for x in data["data"]:
+    #     timestamp = int(datetime.timestamp(datetime.strptime(x["TIMESTAMP"], "%Y-%m-%dT%H:%M:%S.%fZ")))
+    #     data_dict = {"symbol": x["CH_SYMBOL"], "series": x["CH_SERIES"], "market_type": x["CH_MARKET_TYPE"],
+    #                  "open": x["CH_OPENING_PRICE"], "high": x["CH_TRADE_HIGH_PRICE"], "low": x["CH_TRADE_LOW_PRICE"],
+    #                  "close": x["CH_CLOSING_PRICE"], "prev_close": x["CH_PREVIOUS_CLS_PRICE"],
+    #                  "total_volume": x["CH_TOT_TRADED_QTY"], "total_value": x["CH_TOT_TRADED_VAL"],
+    #                  "total_trade": x["CH_TOTAL_TRADES"], "isin": x["CH_ISIN"], "time": timestamp}
+    #     data_arr.append(data_dict)
+
+    # print(from_date, to_date)
+    # print(data_arr)
+    return data
 
 
 def historical_data(symbol, limit_in_days=10):
     dates = get_dates(700, limit_in_days)
-    arr = []
+    arr = ""
     for date in dates:
         data = _historical_data(symbol, date[0], date[1])
         arr += data
@@ -108,7 +111,7 @@ def financial_results():
 
 
 def delivery_value(day, month, year):
-    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=1)
+    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=2)
     return response.text
 
 # delivery_value()

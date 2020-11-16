@@ -1,5 +1,6 @@
 import requests
 import time
+
 headers = {
     'authority': 'query1.finance.yahoo.com',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
@@ -12,11 +13,11 @@ headers = {
     'accept-language': 'en-US,en;q=0.9,hi;q=0.8',
 }
 
-
 investing = requests.Session()
-response = investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI', headers=headers, params=params)
+response = investing.get('https://in.finance.yahoo.com/', headers=headers)
 
-def streaming_chart(symbol='^DJI',dmy_on='30 Nov 2000',dmy_to='30 Nov 2007',interval='1m'):
+
+def streaming_chart(symbol, dmy_on, dmy_to, interval):
     time_object_on = time.strptime(dmy_on, "%d %b %Y")
     on = int(time.mktime(time_object_on))
     time_object_to = time.strptime(dmy_to, "%d %b %Y")
@@ -34,7 +35,9 @@ def streaming_chart(symbol='^DJI',dmy_on='30 Nov 2000',dmy_to='30 Nov 2007',inte
         ('crumb', 'AC8D9NbajIk'),
         ('corsDomain', 'finance.yahoo.com'),
     )
-    response=investing.get('https://query1.finance.yahoo.com/v8/finance/chart/%5EDJI', headers=headers, params=params)
+    response = investing.get(f'https://query1.finance.yahoo.com/v8/finance/chart/%5E{symbol}', headers=headers,
+                             params=params)
     return (response.text)
 
-print(streaming_chart('^DJI','01 Nov 1990','3 Nov 2020','1d'))
+
+print(streaming_chart('NSEI', '01 Nov 2000', '3 Nov 2007', '1d'))
