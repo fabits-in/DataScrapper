@@ -2,7 +2,7 @@ from tqdm import tqdm
 
 from datetime import datetime
 import re
-from core import nse
+# from core import nse
 from core.server.InfluxDB import InfluxDB
 import os.path
 import time
