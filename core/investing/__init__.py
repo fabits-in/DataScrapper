@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-
+import json
 import requests
 
 headers = {
@@ -27,13 +27,22 @@ def _historical_data(symbol, from_date, to_date):
 
 
 def historical_data(symbol, limit_in_days=10):
-    dates = get_dates(20000, limit_in_days)
-    arr = ''
+    dates = get_dates(5000, limit_in_days)
+    arr = dict(t=[], o=[], h=[], l=[], c=[])
     for date in dates:
-        print(date[0], date[1])
-        print(int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
+        # print(date[0], date[1])
+        # print(int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
         data = _historical_data(symbol, int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
-        arr = data
+        print(data)
+        data = json.loads(data)
+        if data['s'] == 'no_data':
+            continue
+
+        arr["t"] += data["t"]
+        arr["o"] += data["o"]
+        arr["h"] += data["h"]
+        arr["l"] += data["l"]
+        arr["c"] += data["c"]
     return arr
 
 
@@ -62,9 +71,11 @@ def get_dates(shift, lmt):
     return result
 
 
-investing_index = ["17940", "39929", "14958", "166", "172", "175", "40820", "37426"]
-for inv in investing_index:
-    x = historical_data(inv, 20000)
-    f = open(inv, 'w')
-    f.write(x)
-    f.close()
+# investing_index = [ "172",]
+# for inv in investing_index:
+#     print(inv)
+#     x = historical_data(inv, 20000)
+#     print(x)
+#     f = open(inv, 'w')
+#     f.write(json.dumps(x))
+#     f.close()

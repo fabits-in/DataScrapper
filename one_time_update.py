@@ -2,12 +2,19 @@ from tqdm import tqdm
 
 from datetime import datetime
 import re
-# from core import nse
-from core.server.InfluxDB import InfluxDB
+from core import nse
+from core.server.MongoDB import MongoDB
 import os.path
 import time
+import json
 
-instruments = ["SBIN", "RELIANCE", "ASHOKLEY", "BHARTIARTL", "PVR", "IRCTC", "ITC", "INFY", "POWERGRID", "ACC"]
+instruments = ["SBIN", "RELIANCE", "ASHOKLEY"]
+investing_index = ["17940", "39929", "14958", "166", "172", "175", "40820", "37426"]
+
+investing_name = {"17940": "Nifty 50", "39929": "BSE Sensex", "14958": "Nasdaq",
+                  "166": "S&P 500", "172": "DAX", "175": "Euro Stoxx 50", "40820": "Shanghai",
+                  "37426": "KOSPI"}
+
 ISIN = {
     "SBIN": "INE062A01020",
     "RELIANCE": "INE002A01018",
@@ -24,7 +31,7 @@ ISIN = {
 
 index = ["NSEI", "BSESN", "IXIC", "DJI", "HSI", "N225", "KS11"]
 
-influxdb = InfluxDB()
+mgdb = MongoDB()
 
 
 def cache_all_historical_data(symbol):
@@ -35,11 +42,11 @@ def cache_all_historical_data(symbol):
     f.close()
 
 
-def store_influx_data(arr):
+def store_mongo_data(arr):
     for i in tqdm(range(0, len(arr), 100)):
         sq = arr[i:i + 100]
-        influxdb.write_data(sq)
-        time.sleep(10)
+        mgdb.write_historical_data(sq)
+        # time.sleep(10)
 
 
 def get_and_store_all_delivery():
@@ -125,14 +132,14 @@ def clean_it(data):
 def process_historical_csv(symbol):
     name = f"raw1/{symbol}.csv"
     f = open(name, 'r')
-    all_influx = []
+    all_mongo = []
     for x in f.readlines():
         comma_sep = re.compile(r",(?=(?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)")
         data = comma_sep.split(x.strip())
         data = clean_it(data)
         if data[1] == 'EQ':
             date = datetime.strptime(data[0], '%d-%b-%Y')
-            timestamp = int(datetime.timestamp(date))
+            # timestamp = int(datetime.timestamp(date))
             series = data[1]
             _open = float(data[2])
             high = float(data[3])
@@ -153,21 +160,76 @@ def process_historical_csv(symbol):
             # if delivery == 0:
             #     print(date, delivery)
 
-            influx_data = f"day,symbol={symbol},series={series},market_type=N,exchange=NSE,isin={ISIN[symbol]}" \
-                          f" open={_open},high={high},low={low},close={close},prev_close={prev_close}," \
-                          f"total_volume={volume},total_value={value},total_trade={0 if trades == '' else trades}," \
-                          f"delivery={delivery}" \
-                          f" {timestamp}"
+            mongo_data = {"symbol": symbol, "series": series, "market_type": "N", "exchange": "NSE",
+                          "isin": ISIN[symbol], "open": _open, "high": high, "low": low, "close": close,
+                          "prev_close": prev_close, "total_volume": volume, "total_value": value,
+                          "total_trade": 0 if trades == '' else trades, "delivery": delivery, "date": date}
 
-            all_influx.append(influx_data)
-    store_influx_data(all_influx)
+            # print(mongo_data)
+            # break
+            all_mongo.append(mongo_data)
+    store_mongo_data(all_mongo)
     f.close()
 
 
+def process_index_data(symbol):
+    f = open(f"raw2/{symbol}")
+    all_mongo = []
+    data = json.loads(f.read().strip())
+    for t, o, h, l, c in zip(data["t"], data["o"], data["h"], data["l"], data["c"]):
+        mongo_data = {"symbol": investing_name[symbol], "series": "INDEX",
+                      "investing_id": symbol, "open": o, "high": h, "low": l, "close": c,
+                      "date": datetime.fromtimestamp(int(t))}
+        all_mongo.append(mongo_data)
+    f.close()
+    store_mongo_data(all_mongo)
+
+
+def update_specific_date_data(symbol):
+    dt = datetime(2020, 11, 17)
+    x = nse.get_ohlc_data(symbol, dt).strip().split("\n")[1]
+    comma_sep = re.compile(r",(?=(?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)")
+    data = comma_sep.split(x.strip())
+    data = clean_it(data)
+    if data[1] == 'EQ':
+        date = datetime.strptime(data[0], '%d-%b-%Y')
+        # timestamp = int(datetime.timestamp(date))
+        series = data[1]
+        _open = float(data[2])
+        high = float(data[3])
+        low = float(data[4])
+        close = float(data[7])
+        prev_close = float(data[5])
+        volume = int(data[11])
+        value = float(data[12])
+        trades = float(data[13])
+        day = date.day
+        month = date.month
+        if 1 <= date.day <= 9:
+            day = '0' + str(date.day)
+        if 1 <= date.month <= 9:
+            month = '0' + str(date.month)
+        name = f"raw/{date.year}:{month}:{day}.csv"
+        delivery = new_delivery_data(name, symbol)
+        # if delivery == 0:
+        #     print(date, delivery)
+
+        mongo_data = {"symbol": symbol, "series": series, "market_type": "N", "exchange": "NSE",
+                      "isin": ISIN[symbol], "open": _open, "high": high, "low": low, "close": close,
+                      "prev_close": prev_close, "total_volume": volume, "total_value": value,
+                      "total_trade": 0 if trades == '' else trades, "delivery": delivery, "date": date}
+
+        mgdb.write_historical_data([mongo_data])
+
+
 if __name__ == '__main__':
+    # update 17 data missed
     for symbol in instruments:
-        print(symbol)
-        process_historical_csv(symbol)
+        update_specific_date_data(symbol)
+
+    # for symbol in instruments:
+    #     print(symbol)
+    #     process_historical_csv(symbol)
     #     insert_all_historical_data(symbol)
     #
     # insert_all_historical_data("SBIN")
@@ -177,3 +239,6 @@ if __name__ == '__main__':
     #
     # x = int(datetime.timestamp(datetime.strptime("13-Nov-1997", "%d-%b-%Y")))
     # print(x)
+
+    # for x in investing_index:
+    #     process_index_data(x)
