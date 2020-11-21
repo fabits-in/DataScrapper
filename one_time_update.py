@@ -3,6 +3,7 @@ from tqdm import tqdm
 from datetime import datetime
 import re
 from core import nse
+from core import investing
 from core.server.MongoDB import MongoDB
 import os.path
 import time
@@ -222,23 +223,38 @@ def update_specific_date_data(symbol):
         mgdb.write_historical_data([mongo_data])
 
 
+def update_specific_date_index(symbol):
+    x = investing.get_specific_date_historical_data(symbol, datetime(2020, 11, 19), datetime(2020, 11, 20))
+    all_mongo = []
+    data = json.loads(x.strip())
+    for t, o, h, l, c in zip(data["t"], data["o"], data["h"], data["l"], data["c"]):
+        mongo_data = {"symbol": investing_name[symbol], "series": "INDEX",
+                      "investing_id": symbol, "open": o, "high": h, "low": l, "close": c,
+                      "date": datetime.fromtimestamp(int(t))}
+        all_mongo.append(mongo_data)
+    print(all_mongo)
+    store_mongo_data(all_mongo)
+
+
 if __name__ == '__main__':
-    # update 17 data missed
-    for symbol in instruments:
-        update_specific_date_data(symbol)
+    for x in investing_index:
+        update_specific_date_index(x)
+# update 17 data missed
+# for symbol in instruments:
+#     update_specific_date_data(symbol)
 
-    # for symbol in instruments:
-    #     print(symbol)
-    #     process_historical_csv(symbol)
-    #     insert_all_historical_data(symbol)
-    #
-    # insert_all_historical_data("SBIN")
-    # get_and_store_all_delivery()
-    # process_historical_csv("SBIN")
-    # from datetime import datetime
-    #
-    # x = int(datetime.timestamp(datetime.strptime("13-Nov-1997", "%d-%b-%Y")))
-    # print(x)
+# for symbol in instruments:
+#     print(symbol)
+#     process_historical_csv(symbol)
+#     insert_all_historical_data(symbol)
+#
+# insert_all_historical_data("SBIN")
+# get_and_store_all_delivery()
+# process_historical_csv("SBIN")
+# from datetime import datetime
+#
+# x = int(datetime.timestamp(datetime.strptime("13-Nov-1997", "%d-%b-%Y")))
+# print(x)
 
-    # for x in investing_index:
-    #     process_index_data(x)
+# for x in investing_index:
+#     process_index_data(x)

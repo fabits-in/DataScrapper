@@ -26,6 +26,12 @@ def _historical_data(symbol, from_date, to_date):
     return response.text
 
 
+def get_specific_date_historical_data(symbol, date, date1):
+    data = _historical_data(symbol, int(datetime.timestamp(date)), int(datetime.timestamp(date1)))
+    # data = json.loads(data)
+    return data
+
+
 def historical_data(symbol, limit_in_days=10):
     dates = get_dates(5000, limit_in_days)
     arr = dict(t=[], o=[], h=[], l=[], c=[])
@@ -33,7 +39,7 @@ def historical_data(symbol, limit_in_days=10):
         # print(date[0], date[1])
         # print(int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
         data = _historical_data(symbol, int(datetime.timestamp(date[0])), int(datetime.timestamp(date[1])))
-        print(data)
+        # print(data)
         data = json.loads(data)
         if data['s'] == 'no_data':
             continue
@@ -69,7 +75,6 @@ def get_dates(shift, lmt):
         from_date = day_before_today(lmt)
         result.insert(0, (from_date, to_date))
     return result
-
 
 # investing_index = [ "172",]
 # for inv in investing_index:

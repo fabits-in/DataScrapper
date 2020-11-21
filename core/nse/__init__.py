@@ -13,7 +13,6 @@ headers = {
     'sec-fetch-user': '?1',
     'sec-fetch-dest': 'document',
     'accept-language': 'en-GB,en;q=0.9',
-    'referer': 'https://www.nseindia.com/get-quotes/equity?symbol=SBIN',
 }
 
 nse = requests.Session()
