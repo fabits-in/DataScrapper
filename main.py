@@ -8,11 +8,13 @@ index = ["NIFTY", "SENSEX", "VIX", "NIFTY BANK", "NASDAQ", "DOW JONES", "S&P 500
 
 investing_index = ["17940", "39929", "14958", "166", "172", "175", "40820", "37426"]
 
+x = nse.list_of_all_results("ASHOKLEY")
+x = json.loads(x)
+print(json.dumps(x))
 
-def symbol_info(symbol):
-    instrument_info = json.loads(nse.equity_info(symbol))
-    instrument_trade_info = json.loads(nse.equity_trade_info(symbol))
-    return {**instrument_info, **instrument_trade_info}
+# if resultDetailedDataLink field is not null then use
+# nse.parse_old_result_table(resultDetailedDataLink)
+# if null then use
+# nse.get_result(x[-1]["params"], x[-1]["seqNumber"])
 
-# for x in instruments:
-#     save_instrument_data(x)
+

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-
 import requests
-import time
+
+from bs4 import BeautifulSoup
 
 headers = {
     'authority': 'www.nseindia.com',
@@ -29,19 +29,6 @@ def equity_info(symbol):
     return response.text
 
 
-def list_of_all_securities():
-    response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
-                       headers=headers)
-    return response.text
-
-
-def holding_shares(table):
-    response = nse.get(
-        f'https://www1.nseindia.com/corporates/shldStructure/ShareholdingPattern/shp_{table}.jsp?ndsId=153247&symbol=RELIANCE&countStr=0|0|0|0|0|0|0|0|0|0|0|0|0|0|NEW_1|0|N&asOnDate=30-Sep-2020&RevisedData=N',
-        headers=headers)
-    return response.text
-
-
 def _historical_data(symbol, from_date, to_date, series='["EQ"]'):
     response = nse.get(
         f"https://www.nseindia.com/api/historical/cm/equity?symbol={symbol}&series={series}&from={from_date}&to={to_date}&csv=true",
@@ -56,7 +43,6 @@ def historical_data(symbol, limit_in_days=10):
     for date in dates:
         data = _historical_data(symbol, date[0], date[1])
         arr += data
-
     return arr
 
 
@@ -77,8 +63,7 @@ def get_dates(shift, lmt):
         to_date = date_format(day_before_today(x * shift + (0 if x == 0 else +1)))
         from_date = date_format(day_before_today(x * shift + shift))
         result.insert(0, (from_date, to_date))
-
-    # left overs??
+    # left overs
     left = lmt % shift
     st = times * shift
     if left > 0:
@@ -86,18 +71,6 @@ def get_dates(shift, lmt):
         from_date = date_format(day_before_today(lmt))
         result.insert(0, (from_date, to_date))
     return result
-
-
-def financial_results():
-    response = nse.get(
-        f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',
-        headers=headers)
-    return response.text
-
-
-def delivery_value(day, month, year):
-    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=2)
-    return response.text
 
 
 def get_today_ohlc_data(symbol):
@@ -113,4 +86,86 @@ def get_ohlc_data(symbol, date):
     data = _historical_data(symbol, date2, date1)
     return data
 
-# delivery_value()
+
+def delivery_value(day, month, year):
+    response = nse.get(f"https://archives.nseindia.com/archives/equities/mto/MTO_{day}{month}{year}.DAT", timeout=2)
+    return response.text
+
+
+def financial_results():
+    response = nse.get(
+        f'https://www1.nseindia.com/corporates/corpInfo/equities/results_Nxbrl.jsp?param=01-Jul-202030-Sep-2020Q2UNNCNERELIANCE&seq_id=1093626&industry=-&viewFlag=N&frOldNewFlag=N',
+        headers=headers)
+    return response.text
+
+
+def list_of_all_securities():
+    response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
+                       headers=headers)
+    return response.text
+
+
+def holding_shares(table):
+    response = nse.get(
+        f'https://www1.nseindia.com/corporates/shldStructure/ShareholdingPattern/shp_{table}.jsp?ndsId=153247&symbol=RELIANCE&countStr=0|0|0|0|0|0|0|0|0|0|0|0|0|0|NEW_1|0|N&asOnDate=30-Sep-2020&RevisedData=N',
+        headers=headers)
+    return response.text
+
+
+def list_of_all_results(symbol):
+    params = (
+        ('index', 'equities'),
+        ('from_date', '01-01-1981'),
+        ('to_date', '21-11-2020'),
+        ('symbol', symbol),
+        ('issuer', 'State Bank of India'),
+        ('period', 'Quarterly'),
+    )
+    response = nse.get('https://www.nseindia.com/api/corporates-financial-results', headers=headers, params=params)
+    return response.text
+
+
+def get_result(params, seq_id):
+    params = (
+        ('index', 'equities'),
+        ('params', params),
+        ('seq_id', seq_id),
+        ('industry', '-'),
+        ('frOldNewFlag', ''),
+        ('ind', 'A'),
+        ('format', 'New'),
+    )
+
+    response = nse.get('https://www.nseindia.com/api/corporates-financial-results-data', headers=headers,
+                       params=params)
+    return response.text
+
+
+def parse_old_result_table(url):
+    response = nse.get(url, headers=headers)
+    soup = BeautifulSoup(response.text, "html.parser")
+    info = soup.find_all("table", attrs={"class": "table table-bordered"})[0]
+    data = soup.find_all("table", attrs={"class": "table table-bordered"})[1]
+    meta = {}
+    k = None
+    for x in info.find_all("td"):
+        if x.get("class")[0] == "tablehead":
+            k = x.text.strip()
+        if x.get("class")[0] == "t1":
+            meta[k] = x.text.strip()
+
+    result = {}
+    for x in data.find_all("tr"):
+        td = x.find_all("td")
+        if len(td) == 2:
+            result[td[0].text.strip()] = td[1].text.strip()
+
+
+    return meta, result
+
+
+# parse_old_result_table("1")
+
+# https://www.nseindia.com/companies-listing/corporate-filings-actions
+
+# print(financial_results())
