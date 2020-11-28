@@ -194,7 +194,6 @@ def parse_old_result_table(url):
         if len(td) == 2:
             result[td[0].text.strip()] = td[1].text.strip()
 
-
     return meta, result
 
 
@@ -276,14 +275,29 @@ def get_world_indices():
         ('_', '1606038772804'),
     )
 
-
     response = requests.get('https://in.investing.com/indices/world-indices', headers=headers, params=params,
-                        cookies=cookies)
+                            cookies=cookies)
 
     # NB. Original query string below. It seems impossible to parse and
     # reproduce query strings 100% accurately so the one below is given
     # in case the reproduced version is not "correct".
-    response = requests.get(
-        'https://in.investing.com/indices/world-indices?additional-indices=on&c_id\[\]=all&major-indices=on&r_id\[\]=1&r_id\[\]=2&r_id\[\]=3&r_id\[\]=4&r_id\[\]=5&_=1606038772804',
-        headers=headers, cookies=cookies)
+    # response = requests.get(
+    #     'https://in.investing.com/indices/world-indices?additional-indices=on&c_id\[\]=all&major-indices=on&r_id\[\]=1&r_id\[\]=2&r_id\[\]=3&r_id\[\]=4&r_id\[\]=5&_=1606038772804',
+    #     headers=headers, cookies=cookies)
     return response.text
+
+
+def corporate_news():
+    params = (
+        ('index', 'equities'),
+        ('from_date', '01-01-1985'),
+        ('to_date', '24-11-2020'),
+        ('symbol', 'ASHOKLEY'),
+        ('issuer', 'Ashok Leyland Limited'),
+    )
+
+    response = nse.get('https://www.nseindia.com/api/corporate-announcements', headers=headers, params=params)
+    print(response.text)
+
+
+corporate_news()
