@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import requests
-
+import json
+import re
 from bs4 import BeautifulSoup
 
 headers = {
@@ -63,7 +64,7 @@ def equity_info(symbol):
     return response.text
 
 
-def _historical_data(symbol, from_date, to_date, series='["EQ"]'):
+def _historical_data(symbol, from_date, to_date, series='["EQ", "BE"]'):
     response = nse.get(
         f"https://www.nseindia.com/api/historical/cm/equity?symbol={symbol}&series={series}&from={from_date}&to={to_date}&csv=true",
         headers=headers)
@@ -136,7 +137,13 @@ def financial_results():
 def list_of_all_securities():
     response = nse.get("https://www1.nseindia.com/corporates/datafiles/LDE_EQUITIES_MORE_THAN_5_YEARS.csv",
                        headers=headers)
-    return response.text
+
+    data = response.text
+    data = data.split("\n")
+    result = []
+    for x in data[1:]:
+        result.append(x.split(",")[0][1:-1])
+    return result
 
 
 def holding_shares(table):
@@ -299,5 +306,4 @@ def corporate_news():
     response = nse.get('https://www.nseindia.com/api/corporate-announcements', headers=headers, params=params)
     print(response.text)
 
-
-corporate_news()
+# corporate_news()

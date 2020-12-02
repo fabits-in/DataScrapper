@@ -237,8 +237,13 @@ def update_specific_date_index(symbol):
 
 
 if __name__ == '__main__':
-    for x in investing_index:
-        update_specific_date_index(x)
+    # for x in investing_index:
+    #     update_specific_date_index(x)
+
+    x = nse.list_of_all_securities()
+    print(x)
+    # for j in x:
+    #     print(j)
 # update 17 data missed
 # for symbol in instruments:
 #     update_specific_date_data(symbol)

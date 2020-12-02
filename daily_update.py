@@ -1,6 +1,8 @@
 import re
 from datetime import datetime, timedelta
 
+import tqdm
+
 from core import nse, investing
 import json
 from core.server.MongoDB import MongoDB
@@ -35,6 +37,7 @@ def clean_it(data):
 
 def get_total_number_of_trades(symbol):
     data = nse.get_today_ohlc_data(symbol)
+    # print(data)
     data = data.strip().split("\n")
     comma_sep = re.compile(r",(?=(?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)")
     data = comma_sep.split(data[1].strip())
@@ -51,51 +54,55 @@ def get_total_number_of_trades(symbol):
 
 
 def update_instrument(symbol):
-    data = symbol_info(symbol)
-    _open, high, low, close, prev_close, volume, value, no_of_trades = get_total_number_of_trades(symbol)
+    try:
+        data = symbol_info(symbol)
+        _open, high, low, close, prev_close, volume, value, no_of_trades = get_total_number_of_trades(symbol)
+        listing_date = datetime.strptime(data["metadata"]["listingDate"], '%d-%b-%Y')
+        if data["metadata"]["lastUpdateTime"] == "-":
+            updated_date = datetime.now()
+        else:
+            updated_date = datetime.strptime(data["metadata"]["lastUpdateTime"], '%d-%b-%Y %H:%M:%S')
+        ohlc_date = datetime(updated_date.year, updated_date.month, updated_date.day)
+        instrument_summary = {'symbol': data["info"]["symbol"],
+                              'name': data["info"]["companyName"],
+                              'industry': data["metadata"]["industry"],
+                              'isin': data["metadata"]["isin"],
+                              'series': data["metadata"]["series"],
+                              'status': data["metadata"]["status"],
+                              'listing_date': listing_date,
+                              'last_update_time': updated_date,
+                              'sector_index': data["metadata"]["pdSectorInd"].strip(),
+                              'face_value': data["securityInfo"]["faceValue"],
+                              'issued_cap': data["securityInfo"]["issuedCap"],
+                              "open": _open,
+                              "high": high,
+                              "low": low,
+                              "close": close,
+                              "prev_close": prev_close,
+                              "total_volume": volume,
+                              "total_value": value,
+                              "total_trade": no_of_trades,
+                              "delivery": data["securityWiseDP"]['deliveryQuantity'],
+                              }
 
-    listing_date = datetime.strptime(data["metadata"]["listingDate"], '%d-%b-%Y')
-    updated_date = datetime.strptime(data["metadata"]["lastUpdateTime"], '%d-%b-%Y %H:%M:%S')
-    ohlc_date = datetime(updated_date.year, updated_date.month, updated_date.day)
-    instrument_summary = {'symbol': data["info"]["symbol"],
-                          'name': data["info"]["companyName"],
-                          'industry': data["info"]["industry"],
-                          'isin': data["metadata"]["isin"],
-                          'series': data["metadata"]["series"],
-                          'status': data["metadata"]["status"],
-                          'listing_date': listing_date,
-                          'last_update_time': updated_date,
-                          'sector_index': data["metadata"]["pdSectorInd"].strip(),
-                          'face_value': data["securityInfo"]["faceValue"],
-                          'issued_cap': data["securityInfo"]["issuedCap"],
+        # mongo_data = {"symbol": symbol, "series": data["metadata"]["series"], "market_type": "N",
+        #               "exchange": "NSE",
+        #               "isin": data["metadata"]["isin"],
+        #               "open": _open,
+        #               "high": high,
+        #               "low": low,
+        #               "close": close,
+        #               "prev_close": prev_close,
+        #               "total_volume": volume,
+        #               "total_value": value,
+        #               "total_trade": no_of_trades, "delivery": data["securityWiseDP"]['deliveryQuantity'],
+        #               "date": ohlc_date}
 
-                          "open": _open,
-                          "high": high,
-                          "low": low,
-                          "close": close,
-                          "prev_close": prev_close,
-                          "total_volume": volume,
-                          "total_value": value,
-                          "total_trade": no_of_trades,
-                          "delivery": data["securityWiseDP"]['deliveryQuantity'],
-                          }
-
-    mongo_data = {"symbol": symbol, "series": data["metadata"]["series"], "market_type": "N",
-                  "exchange": "NSE",
-                  "isin": data["metadata"]["isin"],
-                  "open": _open,
-                  "high": high,
-                  "low": low,
-                  "close": close,
-                  "prev_close": prev_close,
-                  "total_volume": volume,
-                  "total_value": value,
-                  "total_trade": no_of_trades, "delivery": data["securityWiseDP"]['deliveryQuantity'],
-                  "date": ohlc_date}
-
-    print(mongo_data)
-    # mongodb.write_historical_data([mongo_data])
-    # mongodb.write_instrument_data(symbol, instrument_summary)
+        # print(instrument_summary)
+        # mongodb.write_historical_data([mongo_data])
+        mongodb.write_instrument_data(symbol, instrument_summary)
+    except Exception as e:
+        print(e)
 
 
 def day_before_today(no_of_days):
@@ -116,7 +123,6 @@ def update_today_index(symbol):
         # print(mongo_data)
         mongodb.write_historical_data([mongo_data])
 
-
 # for x in instruments:
 #     print(x)
 #     update_instrument(x)
@@ -124,3 +130,8 @@ def update_today_index(symbol):
 
 # for x in investing_index:
 #     update_today_index(x)
+
+# xx = nse.list_of_all_securities()[290:]
+# for x in tqdm.tqdm(xx):
+#     print(x)
+# update_instrument(x)a
