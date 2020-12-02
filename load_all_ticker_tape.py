@@ -43,7 +43,6 @@ def process_list():
             url = core.ticker_tape.generate_all_urls(link)
             for x in url:
                 urls.put(x)
-            break
 
 
 process_list()
