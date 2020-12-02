@@ -11,6 +11,15 @@ import core.ticker_tape
 data = Queue()
 urls = Queue()
 
+import logging
+
+logpath = "raw"
+logger = logging.getLogger('log')
+logger.setLevel(logging.INFO)
+ch = logging.FileHandler(logpath)
+ch.setFormatter(logging.Formatter('%(message)s'))
+logger.addHandler(ch)
+
 
 def download():
     while True:
@@ -18,9 +27,10 @@ def download():
         url = urls.get()
         response = requests.get(url)
         soup = BeautifulSoup(response.text, "html.parser")
-        jsondata = soup.find("script", {"id": "__NEXT_DATA__"})
-        jsondata = json.loads(jsondata.string)
-        data.put(json.dumps(jsondata))
+        json_data = soup.find("script", {"id": "__NEXT_DATA__"})
+        if json_data:
+            json_data = json.loads(json_data.string)
+            logger.info(json.dumps(json_data))
         urls.task_done()
 
 
@@ -45,10 +55,3 @@ for i in range(10):
 urls.join()
 
 print("DONE...")
-f = open("raw", 'w')
-while not data.empty():
-    txt = data.get()
-    f.write(txt + "\n")
-
-f.close()
-print("FINISHED")
