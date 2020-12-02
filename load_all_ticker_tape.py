@@ -30,7 +30,7 @@ def download():
         json_data = soup.find("script", {"id": "__NEXT_DATA__"})
         if json_data:
             json_data = json.loads(json_data.string)
-            logger.info(url + ", " + json.dumps(json_data))
+            logger.info(url + " #### " + json.dumps(json_data))
         urls.task_done()
 
 
@@ -43,6 +43,7 @@ def process_list():
             url = core.ticker_tape.generate_all_urls(link)
             for x in url:
                 urls.put(x)
+            break
 
 
 process_list()
