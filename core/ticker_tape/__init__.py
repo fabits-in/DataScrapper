@@ -7,7 +7,7 @@ from tqdm import tqdm
 
 def get_financials_income_data():
     response = requests.get(
-        "https://www.tickertape.in/stocks/acc-ACC/financials?period=quarter&statement=income&view=normal")
+        "https://www.tickertape.in/stocks/state-bank-of-india-SBI/financials?period=quarter&statement=income&view=normal")
     soup = BeautifulSoup(response.text, "html.parser")
     data = soup.find("script", {"id": "__NEXT_DATA__"})
     data = json.loads(data.string)
@@ -19,12 +19,12 @@ def get_financials_income_data():
                           "pbit": statement["qIncPbi"], "net_income": statement["qIncNinc"],
                           "eps": statement["qIncEps"]}
         result.append(dict_statement)
-    print(result)
+    return result
 
 
 def get_financials_balance_sheet_data():
     response = requests.get(
-        "https://www.tickertape.in/stocks/reliance-industries-RELI/financials?period=annual&statement=balancesheet&view=normal")
+        "https://www.tickertape.in/stocks/state-bank-of-india-SBI/financials?period=annual&statement=balancesheet&view=normal")
     soup = BeautifulSoup(response.text, "html.parser")
     data = soup.find("script", {"id": "__NEXT_DATA__"})
     data = json.loads(data.string)
@@ -57,12 +57,12 @@ def get_financials_balance_sheet_data():
                           "total_liabilities_and_shareholders_equity": statement["balTlse"],
                           "total_common_shares_outstanding": statement["balTcso"]}
         result.append(dict_statement)
-    print(result)
+    return result
 
 
 def get_financials_cash_flow_data():
     response = requests.get(
-        "https://www.tickertape.in/stocks/reliance-industries-RELI/financials?period=annual&statement=cashflow")
+        "https://www.tickertape.in/stocks/state-bank-of-india-SBI/financials?period=annual&statement=cashflow")
     soup = BeautifulSoup(response.text, "html.parser")
     data = soup.find("script", {"id": "__NEXT_DATA__"})
     data = json.loads(data.string)
@@ -77,7 +77,7 @@ def get_financials_cash_flow_data():
                           "Capital Expenditures": statement["cafCexp"],
                           "Free Cash Flow": statement["cafFcf"]}
         result.append(dict_statement)
-    print(result)
+    return result
 
 
 def get_isin(url):
