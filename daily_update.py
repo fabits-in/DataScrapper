@@ -41,25 +41,25 @@ def process_bhavcopy_data(data):
 
 while True:
     now = datetime.now()
-    # if 16 <= now.hour <= 18:
-    try:
-        today = utils.bhavcopy_date(now)
-        task = mongodb.get_day_task(today)
-        if not task:
-            data = nse.get_bhavcopy_csv(today)
-            data = process_bhavcopy_data(data)
-            check_date = utils.bhavcopy_date(data[0]["date"])
-            task1 = mongodb.get_day_task(check_date)
-            if task1:
-                break
-            print("Updating data...")
-            mongodb.write_historical_data(data)
-            for row in tqdm(data):
-                mongodb.write_instrument_data(row["symbol"], row)
-            mongodb.update_day_task_ohlc(today)
-        else:
-            print("already done")
+    if 16 <= now.hour <= 18:
+        try:
+            today = utils.bhavcopy_date(now)
+            task = mongodb.get_day_task(today)
+            if not task:
+                data = nse.get_bhavcopy_csv(today)
+                data = process_bhavcopy_data(data)
+                check_date = utils.bhavcopy_date(data[0]["date"])
+                task1 = mongodb.get_day_task(check_date)
+                if task1:
+                    break
+                print("Updating data...")
+                mongodb.write_historical_data(data)
+                for row in tqdm(data):
+                    mongodb.write_instrument_data(row["symbol"], row)
+                mongodb.update_day_task_ohlc(today)
+            else:
+                print("already done")
 
-    except Exception as e:
-        print(e)
+        except Exception as e:
+            print(e)
     time.sleep(1800)
