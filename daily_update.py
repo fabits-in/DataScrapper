@@ -16,7 +16,7 @@ def process_bhavcopy_data(data):
         symbol = row[0].strip()
         series = row[1].strip()
         if not series == "EQ":
-            break
+            continue
         date = row[2].strip()
         prev_close = 0 if row[3].strip() in ["-", ""] else float(row[3].strip())
         open_price = 0 if row[4].strip() in ["-", ""] else float(row[4].strip())
