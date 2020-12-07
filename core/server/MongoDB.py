@@ -14,6 +14,12 @@ class MongoDB:
     def write_instrument_data(self, symbol, data):
         self.db["instruments"].update({"symbol": symbol}, data, True)
 
+    def get_day_task(self, day):
+        return self.db["task"].find_one({"day": day})
+
+    def update_day_task_ohlc(self, day):
+        self.db["task"].update({"day": day}, {"ohlc": True, "day": day}, True)
+
     def write_financial_data(self, data):
         self.db["financial_data"].insert_many(data)
 
@@ -22,5 +28,3 @@ class MongoDB:
 
     def delete1(self, query):
         self.db["financial_data"].delete_many(query)
-
-
