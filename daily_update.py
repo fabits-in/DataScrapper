@@ -1,4 +1,5 @@
 import time
+from copy import deepcopy
 from datetime import datetime
 
 from core import utils, nse
@@ -48,13 +49,14 @@ while True:
             if not task:
                 data = nse.get_bhavcopy_csv(today)
                 data = process_bhavcopy_data(data)
+                data1 = deepcopy(data)
                 check_date = utils.bhavcopy_date(data[0]["date"])
                 task1 = mongodb.get_day_task(check_date)
                 if task1:
                     break
                 print("Updating data...")
                 mongodb.write_historical_data(data)
-                for row in tqdm(data):
+                for row in tqdm(data1):
                     mongodb.write_instrument_data(row["symbol"], row)
                 mongodb.update_day_task_ohlc(today)
             else:
