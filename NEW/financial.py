@@ -39,7 +39,6 @@ def get_financial_fata(stock_name, start_year, end_year, max_year, result_type):
                              params=params, data=data).text
     soup = BeautifulSoup(response, features="lxml")
     html_data = soup.find_all("table")[3]
-    print(html_data)
     table_data = [[cell.text for cell in row("td")] for row in html_data.find_all("tr")]
     result = {}
     for row in table_data:
