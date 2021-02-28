@@ -10,7 +10,7 @@ def get_techinical_data(date):
     reader = csv.DictReader(io.StringIO(url_content.decode("utf-8")))
     return list(reader)
 
-# print(get_techinical_data("22022021"))
+print(get_techinical_data("22022021"))
 
 #Rustyt Start
 import csv
@@ -64,8 +64,8 @@ def make_bhav_json(csvFilePath, jsonFilePath):
         print(x)
         f = open(f"{jsonFilePath}",'w+')
         f.write("["+x+']')
-make_bhav_json(csvFilePath, 'bhav1.json')
-make_bhav_json_symbol_and_series(csvFilePath)
+# make_bhav_json(csvFilePath, 'bhav1.json')
+# make_bhav_json_symbol_and_series(csvFilePath)
 
 
 #Rustyt End
